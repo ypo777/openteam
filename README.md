@@ -48,7 +48,7 @@
 2. สร้าง directory เป็น `ชื่อ account Github` ของตัวเอง เช่น `kengggg` ไว้ใน `/solutions`
 3. ตั้งชื่อไฟล์ตามลำดับโจทย์ เช่น `01.py`, `02.php` และ `03.html`
 4. สร้าง [Pull Request][2] มาที่ branch `main` ของ repository นี้
-5. เมื่อทีม Opendream ได้รับแจ้ง Pull Request จะทำการ review เพื่อทำการดำเนินการสัมภาษณ์ต่อไป
+5. เมื่อทีมโอเพ่นดรีมได้รับแจ้ง Pull Request จะทำการ review เพื่อทำการดำเนินการสัมภาษณ์ต่อไป
 
 [1]: https://www.opendream.co.th
 [2]: https://docs.github.com/en/github/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request
