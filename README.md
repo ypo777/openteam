@@ -21,7 +21,7 @@
 ## 03 - Front-end API Rendering
 
 เขียน front-end ให้ดูแล้ว `สวยงาม` และไม่น่าเกลียดจนทนดูไม่ได้ โดยมีข้อกำหนดดังนี้
-- Request `JSON` จากไฟล์ `https://raw.githubusercontent.com/opendream/openteam/main/posts.json` โดยเนื้อหาประกอบไปด้วย field ดังนี้
+- Request `JSON` จากไฟล์ [posts.json][3] โดยเนื้อหาประกอบไปด้วย field ดังนี้
   - `userId`
   - `id`
   - `title`
@@ -54,3 +54,4 @@
 
 [1]: https://www.opendream.co.th
 [2]: https://docs.github.com/en/github/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request
+[3]: https://raw.githubusercontent.com/opendream/openteam/main/posts.json
