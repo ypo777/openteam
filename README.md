@@ -20,16 +20,18 @@
 
 ## 03 - Front-end API Rendering
 
-เขียน front-end ให้ดูแล้ว `สวยงาม` โดยมีข้อกำหนดดังนี้
-- Request `JSON` จาก API: https://jsonplaceholder.typicode.com/posts โดยเนื้อหาประกอบไปด้วย field ดังนี้
+เขียน front-end ให้ดูแล้ว `สวยงาม` และไม่น่าเกลียดจนทนดูไม่ได้ โดยมีข้อกำหนดดังนี้
+- Request `JSON` จากไฟล์ `https://raw.githubusercontent.com/opendream/openteam/main/posts.json` โดยเนื้อหาประกอบไปด้วย field ดังนี้
   - `userId`
   - `id`
   - `title`
   - `body`
+  - `userAvatar`
 - แสดงผลด้วย React หรือ Vue.js โดยมีข้อกำหนดเบื้องต้นดังนี้
   - แสดง pagination ของผลลัพธ์ทุกๆ 20 ผลลัพธ์
   - User สามารถเรียงลำดับผลลัพธ์ตาม `userId` หรือ `id` ได้ด้วยตัวเอง การเรียงลำดับให้ทำที่ client-side
   - แสดงผลแบบ responsive ได้
+  - แสดง `userAvatar` เป็นวงกลมกิ๊บเก๋น่ารัก
 
 # เงื่อนไขการทำโจทย์
 
