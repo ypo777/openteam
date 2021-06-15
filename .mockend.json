@@ -1,9 +1,0 @@
-{
-    "Post": {
-      "title": "string",
-      "views": "int",
-      "published": "boolean",
-      "createdAt": "date",
-      "avatar": "http://lorempixel.com/450/800/people/3/"
-    }
-  }
