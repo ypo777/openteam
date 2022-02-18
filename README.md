@@ -76,6 +76,6 @@ Output: H1E1L3O2W1R1D1
 5. เมื่อทีมโอเพ่นดรีมได้รับแจ้ง Pull Request จะทำการ review เพื่อทำการดำเนินการสัมภาษณ์ต่อไป
 
 [1]: https://www.opendream.co.th
-[2]: https://docs.github.com/en/github/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request
+[2]: https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request
 [3]: https://raw.githubusercontent.com/opendream/openteam/main/posts.json
 [4]: http://www.unicode.org/charts/PDF/U0E00.pdf
