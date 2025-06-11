@@ -1,0 +1,18 @@
+name: task-02-go
+on:
+  push:
+    paths: ['tasks/02-fix-the-bug-go/**']
+  pull_request:
+    paths: ['tasks/02-fix-the-bug-go/**']
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: '1.22'
+      - run: |
+          cd tasks/02-fix-the-bug-go
+          go test -race ./...

@@ -1,1 +1,8 @@
 .DS_Store
+
+#Python
+__pycache__
+.pytest_cache
+#CSharp
+bin
+obj

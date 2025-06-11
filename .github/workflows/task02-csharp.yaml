@@ -1,0 +1,16 @@
+name: task-02-csharp
+on:
+  push:
+    paths: ['tasks/02-fix-the-bug-csharp/**']
+  pull_request:
+    paths: ['tasks/02-fix-the-bug-csharp/**']
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+      - run: dotnet test tasks/02-fix-the-bug-csharp/BuggyLib.Tests
