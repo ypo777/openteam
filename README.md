@@ -1,81 +1,170 @@
-# หาเพื่อนร่วมทีม Opendream 2022.01
+# Opendream – Backend Coding Challenge (2025 · 06)
 
-[โอเพ่นดรีม][1] กำลังหา developer มาเป็นเพื่อนร่วมทีม โจทย์ทดสอบนี้หวังว่าจะทำให้เรารู้จักฝีมือกันมากขึ้น
+> **Role**  Back-End Developer (Python / C# / Go)
+> **Location**  Remote-friendly, HQ in Bangkok
+> **Time budget**  ≈ 15 min total
 
-# ลักษณะโจทย์
+Welcome!
+The two micro-tasks below give us a clear window into your code style, testing habits, and debugging approach—the exact skills you’ll use every day on social-impact platforms such as **Vote62** and **POOPS**.
 
-โจทย์จะมีทั้งหมด 3 ข้อ ดังนี้
-## 01 - FizzBuzz
+---
 
-เขียนโปรแกรมที่รับ `input` เป็นชุดตัวเลข `1` ถึง `100` และแสดง `output` ตามเงื่อนไขดังนี้
-- ถ้า `input` หารด้วย 3 ลงตัว แสดง `output` เป็น `Fizz`
-- ถ้า `input` หารด้วย 5 ลงตัว แสดง `output` เป็น `Buzz`
-- ถ้า `input` หารด้วย 3 และ 5 ลงตัว แสดง `output` เป็น `FizzBuzz`
-- ถ้า `input` ไม่อยู่ในเงื่อนไขข้างต้น แสดง `output` เป็น `input`
-
-## 02 - เรียงลำดับ string ภาษาไทย
-
-เขียน function ให้เรียงลำดับอักขระตามลำดับของอักขระไทยตามมาตรฐาน [Unicode][4] โดย มีเงื่อนไขดังนี้
-
-![Thai Unicode Order](/images/thai-unicode-order.png "Thai Unicode Order")
-
-- string ที่ขึ้นต้นด้วยพยัญชนะ ให้เรียงตามลำดับพยัญชนะ
-- string ที่ขึ้นต้นสระ ให้เรียงตามพยัญชนะแรกหลังสระนั้น เช่น [`ช้าง` , `เชียงใหม่`, `ช่าง`] เรียงเป็น [`ช่าง`, `ช้าง`, `เชียงใหม่`]
-- string ที่ขึ้นตันด้วยอักษรนำ `ห` `อ` ให้เรียงตาม อักษรนำ เช่น [`อย่า`, `อ้าง`, `อยาก`] เรียงเป็น [`อย่า`, `อยาก`, `อ้าง`]
-- string ที่ขึ้นต้นด้วยสระและอักษรนำ `ห` `อ` ให้เรียงตาม พยัญชนะและอักษรนำ เช่น [`หญิง`, `ยักษ์`, `ใหญ่`] เรียงเป็น [`ยักษ์`, `หญิง` , `ใหญ่`]
-
-### ตัวอย่างที่ 1
+## Repository Layout
 
 ```
-input = ["ไก่", "กา", "ขา", "แก", "แขวน", "เกีย"]
-output = ["กา", "เกีย", "แก", "ไก่",  "ขา", "แขวน"]
+
+tasks/
+├─ 01-run-length/
+│   ├─ python/   ← stub + failing tests
+│   ├─ go/
+│   └─ csharp/
+└─ 02-fix-the-bug/
+│   ├─ python/   ← stub + failing tests
+│   ├─ go/
+│   └─ csharp/
+.github/workflows/   ← CI (runs on any change under tasks/)
+
+````
+
+For **each** task pick **one** language (Python ≥ 3.10, Go ≥ 1.22, or C# / .NET 8).
+Edit **only** the stub implementation inside `tasks/…/<lang>/`; keep the provided tests unchanged.
+Commits to any file under `tasks/` automatically trigger CI.
+
+---
+
+## 1 Challenge Menu
+
+| ID | Theme              | Est. time | Mandatory? | Who does it? |
+|----|--------------------|-----------|------------|--------------|
+| 01 | Run-Length Encoder | 10 – 15 min | ✔ | Everyone |
+| 02 | Fix-the-Bug        | 15 – 20 min | ✔ | Everyone |
+
+---
+
+## 2 Task Specs
+
+<details>
+<summary><strong>01 · Run-Length Encoder</strong></summary>
+
+Implement run-length encoding: `<char><count>`.
+
+```text
+""                              → ""
+"XYZ"                           → "X1Y1Z1"
+"AAAaaaBBB🦄🦄🦄🦄🦄CCCCCCCCCCCC" → "A3a3B3🦄5C12"
+"HAAAAPPY🦄"                    → "H1A4P2Y1🦄1"
+````
+
+* Requirements
+
+  * Case-sensitive.
+  * Handle multi-digit counts.
+  * Full Unicode (🦄).
+  * **No** third-party RLE library.
+* Tests live in each language folder and fail until you implement `encode` / `Encode`.
+
+</details>
+
+<details>
+<summary><strong>02 · Fix-the-Bug</strong></summary>
+
+The bundled ID generator has a data race and produces duplicates.
+
+* Folder `tasks/02-fix-the-bug/<lang>/` contains
+
+  * `buggy_counter.*`  ← faulty implementation
+  * `test_counter.*`   ← failing test
+* Your job
+
+  1. **Do not touch the tests.**
+  2. Make *one small patch* so the tests go green (`pytest`, `go test -race`, or `dotnet test`).
+  3. Add ≤ 5 lines at the top of the file explaining *why* the race happened.
+
+</details>
+
+---
+
+## 3 What to Include in Your Pull Request
+
+Create **one** of the following:
+
+1. **`SOLUTIONS.md` at repo root** – or –
+2. A detailed PR **description**.
+
+Either way, cover these three bullet points per task:
+
+| Prompt                | Why we ask                                                           |
+| --------------------- | -------------------------------------------------------------------- |
+| **How** you solved it | Outline core algorithm / fix in 1-2 sentences.                       |
+| **Why** this approach | Trade-offs you weighed (simplicity, performance, readability, etc.). |
+| **Time spent**        | Reality check vs. our estimate.                                      |
+
+*Optional extras* (nice to see, never required):
+
+* Edge cases you considered.
+* If you had more time, what you’d refine.
+* Links to similar code you’ve written or blog posts you drew on.
+
+A minimal template you can copy:
+
+```markdown
+## Solution notes
+
+### Task 01 – Run-Length Encoder
+- Language: Go
+- Approach: [EXPLAIN HERE]
+- Why: [EXPLAIN HERE]
+- Time spent: ~8 min
+
+### Task 02 – Fix-the-Bug
+- Language: Python
+- Approach: [EXPLAIN HERE]
+- Why: [EXPLAIN HERE]
+- Time spent: ~6 min
 ```
 
-### ตัวอย่างที่ 2
+---
 
-```
-input = ["ขอ,"ให้","เจริญ","นะ","จ๊ะ","หนุ่ม","สาว","ทั้ง","หลาย"]
-output = ["ขอ,"จ๊ะ","เจริญ","ทั้ง","นะ","สาว","หนุ่ม","หลาย","ให้"]
-```
-### ตัวอย่างที่ 3
+## 4 How We Evaluate
 
-```
-input = ["เสือ","สาว","ใส่","แว่น","แวว","วาว"]
-output = ["วาว", "แว่น", "แวว",  "สาว", "เสื้อ","ใส่"]
-```
-## 03 - นับอักขระใน string
+| Dimension              | What we look for                                |
+| ---------------------- | ----------------------------------------------- |
+| **Correctness**        | Tests pass; spec satisfied                      |
+| **Readability**        | Clear naming, small functions, helpful comments |
+| **Idiomatic Style**    | Follows language norms                          |
+| **Testing Discipline** | Provided tests remain intact                    |
+| **Debug & Reasoning**  | Comment explains the race fix in Task 02        |
 
-เขียน function รับ `input` เป็น string และ return เป็นอีก string ที่นับจำนวนตัวอักษรใน `input` ดังตัวอย่าง `โปรดทำข้อนี้โดยไม่ใช้ build-in function`
+Each area scores 0-3 internally (4-point rubric).
 
-```
-Input: GOOGLE
-Output: G2O2L1E1
-```
-```
-Input: SCHOOL
-Output: S1C1H1O2L1
-```
-```
-Input: HELLOWORLD
-Output: H1E1L3O2W1R1D1
-```
+---
 
+## 5 Submission Steps
 
-# เงื่อนไขการทำโจทย์
+1. **Fork** this repo.
+2. Edit the stub(s) in `tasks/…/<lang>/`.
+3. Add your `SOLUTIONS.md` (or PR description).
+4. Commit & push.
+5. **Open a pull request** against `main`.
 
-ณ วันที่ 1 มีนาคม 2565 เป็นต้นไป ผู้ทำโจทย์ สามารถเลือกทำโจทย์ด้วยภาษาโปรแกรมหรือเครื่องมือที่ตนเองถนัดได้ดังนี้
+CI will run automatically on your forked branch. When both tasks are ✅, we’ll contact you to arrange a discussion.
 
-- โจทย์ที่ `01` `02` และ `03` ใช้ภาษา `PHP` `Python` หรือ `JavaScript`
+---
 
-# วิธีส่งคำตอบ  
+## 6 FAQ / Environment
 
-1. Fork repository นี้ไปยัง Github ของตัวเอง
-2. สร้าง directory เป็น `ชื่อ account Github` ของตัวเอง เช่น `kengggg` ไว้ใน `/solutions`
-3. ตั้งชื่อไฟล์ตามลำดับโจทย์ เช่น `01.py`, `02.php` และ `03.js`
-4. สร้าง [Pull Request][2] มาที่ branch `main` ของ repository นี้
-5. เมื่อทีมโอเพ่นดรีมได้รับแจ้ง Pull Request จะทำการ review เพื่อทำการดำเนินการสัมภาษณ์ต่อไป
+* **Tooling available** – `pytest`, `go test`, `dotnet test` already wired in CI.
+* **Dependencies** – you may vendor any OSS library **except** one that already implements RLE.
+* **Docker** – not required.
+* **Local test** – `pytest tasks/01-run-length/python`, `go test ./tasks/...`, `dotnet test ...`.
 
-[1]: https://www.opendream.co.th
-[2]: https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request
-[3]: https://raw.githubusercontent.com/opendream/openteam/main/posts.json
-[4]: http://www.unicode.org/charts/PDF/U0E00.pdf
+---
+
+## 7 Questions?
+
+Open a GitHub Issue or email [jobs@opendream.co.th](mailto:jobs@opendream.co.th).
+Happy coding—can’t wait to read your solutions!
+
+---
+
+<p align="center"><sub>© Opendream 2025 · MIT License for this repo</sub></p>
