@@ -12,6 +12,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\BuggyLib.csproj" />
+    <ProjectReference Include="..\BuggyLib\BuggyLib.csproj" />
   </ItemGroup>
 </Project>

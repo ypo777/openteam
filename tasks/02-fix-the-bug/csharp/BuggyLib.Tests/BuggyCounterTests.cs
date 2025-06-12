@@ -13,9 +13,9 @@ public class BuggyCounterTests
         const int N = 5_000;
 
         var bag = new ConcurrentBag<long>();
-        Parallel.For(0, N, _ => bag.Add(BuggyCounter.NextId()));
+        Parallel.For(0, N, _ => bag.Add(BuggyLib.BuggyCounter.NextId()));
 
         int duplicates = bag.Count - bag.Distinct().Count();
-        Assert.Equal(0, duplicates);  // ⬅️ will FAIL until race fixed
+        Assert.Equal(0, duplicates);  // ⬅️ will FAIL until the race is fixed
     }
 }

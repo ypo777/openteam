@@ -1,4 +1,3 @@
-// BuggyLib/BuggyCounter.cs
 namespace BuggyLib;
 
 public static class BuggyCounter
