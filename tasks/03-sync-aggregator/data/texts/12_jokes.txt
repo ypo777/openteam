@@ -1,0 +1,4 @@
+#sleep=1
+Why don't programmers like nature? It has too many bugs.
+I told my computer I needed a break, and it said 'No problem—I'll go to sleep.'
+Why did the database administrator break up with the spreadsheet? There were too many tables and not enough relations.

@@ -1,0 +1,15 @@
+texts/01_lorem.txt
+texts/02_zen.txt
+texts/03_bacon.txt
+texts/04_proverbs.txt
+texts/05_poem.txt
+texts/06_quote.txt
+texts/07_sleep5.txt
+texts/08_sleep10.txt
+texts/09_scifi.txt
+texts/10_short.txt
+texts/11_manifesto.txt
+texts/12_jokes.txt
+texts/13_ai_ghosts.txt
+texts/14_funfacts.txt
+texts/15_trivia.txt

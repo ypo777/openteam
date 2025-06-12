@@ -1,0 +1,5 @@
+#sleep=1
+In the year 2525 humanity had spread beyond the solar system.
+Jump gates pulsed at the edge of every colony, folding space in an instant.
+But with distance came silence, and silence bred fear.
+The first distress beacon arrived twenty years later, encoded in a dead language.
