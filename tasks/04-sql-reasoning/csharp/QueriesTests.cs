@@ -42,10 +42,10 @@ namespace SqlReasoning.Tests
             using var sr = new StreamReader(path);
             var header = sr.ReadLine()?.Split(',');
             var rows   = new List<string[]>();
-            string? line;
+            string line;
             while ((line = sr.ReadLine()) != null)
                 rows.Add(line.Split(','));
-            return (header!, rows);
+            return (header, rows);
         }
 
         // ---------- tests -------------------------------------------------- //
