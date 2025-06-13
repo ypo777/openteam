@@ -23,7 +23,7 @@ func rootDir(t *testing.T) string {
 
 func dbPath(t *testing.T) string { return filepath.Join(rootDir(t), "donations.db") }
 func expPath(t *testing.T, name string) string {
-	return filepath.Join(rootDir(t), "../expected", name)
+	return filepath.Join(rootDir(t), "expected", name)
 }
 
 func fetch(t *testing.T, sqlStr string) ([]string, [][]string) {

@@ -10,7 +10,7 @@ namespace SqlReasoning.Tests
 {
     public class QueriesTests
     {
-        private static string RootDir => Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "..", "..", ".."));
+        private static string RootDir => Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "..", "..", "..", ".."));
         private static string DbPath   => Path.Combine(RootDir, "donations.db");
         private static string ExpDir   => Path.Combine(RootDir, "expected");
 
