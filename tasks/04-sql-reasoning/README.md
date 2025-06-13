@@ -1,37 +1,41 @@
-# Task 4 – SQL Reasoning (Data analytics & index design)
+# Task 4 – SQL Reasoning (Data analytics & index design)
 
-This task is **all about writing SQL and thinking about indexes**.
-The harness in *Python*, *Go* and *C#* is already wired up; you only need to fill a few string constants.
+This advanced challenge tests your ability to write efficient SQL queries and design indexes for performance optimization. You'll work with a realistic donations database and need to produce exact results while ensuring optimal query execution.
 
 ---
 
-## 1 · Folder scaffold
+## 1 · Folder Structure
 
 ```
-tasks/04‑sql‑reasoning/
-├─ donations.db              # SQLite 3.45 database (≈ 50 k pledges)
+tasks/04-sql-reasoning/
+├─ donations.db              # SQLite 3.45 database (≈ 50k pledges)
 ├─ schema.sql                # Reference DDL (read‑only)
 ├─ expected/                 # Ground‑truth produced by our reference solution
 │   ├─ q1.csv
 │   └─ q2.csv
 ├─ python/
 │   ├─ queries.py            # ←‑‑‑ fill SQL_A, SQL_B, INDEXES
-│   └─ test_queries.py
+│   └─ test_queries.py       # failing tests
 ├─ go/
-│   ├─ queries.go            # same constants for Go
-│   └─ queries_test.go
+│   ├─ go.mod                # Go module file
+│   ├─ queries.go            # implement SQL constants
+│   └─ queries_test.go       # failing tests
 └─ csharp/
-    ├─ Queries.cs            # same constants for C#
-    └─ QueriesTests.cs
+    ├─ Queries.cs            # implement SQL constants
+    ├─ QueriesTests.cs       # failing tests
+    └─ SqlReasoning.csproj   # C# project file
 ```
 
-*The three language harnesses are identical apart from syntax; pick the one you like or update all three—your call.*
+Pick **one** language and edit only the implementation file.
+The tests in that folder will remain red until your queries are correct.
 
 ---
 
-## 2 · Schema excerpt
+## 2 · Specification
 
-```text
+### Database schema
+
+```sql
 campaign (
     id           INTEGER PRIMARY KEY,
     name         TEXT NOT NULL,
@@ -55,11 +59,7 @@ pledge (
 )
 ```
 
----
-
-## 3 · Your tasks
-
-### **Task A – Total raised per campaign**
+### Task A – Total raised per campaign
 
 Return **one row per campaign** with:
 
@@ -67,13 +67,11 @@ Return **one row per campaign** with:
 | --------------- | ---- | --------------------------------------------- |
 | `campaign_id`   | INT  | `campaign.id`                                 |
 | `total_thb`     | INT  | sum of all pledges for that campaign          |
-| `pct_of_target` | REAL | `total_thb / target_thb`, **rounded to 4 dp** |
+| `pct_of_target` | REAL | `total_thb / target_thb`, **rounded to 4 dp** |
 
 *Order the result by* **`pct_of_target` descending, then `campaign_id` ascending**.
 
----
-
-### **Task B – 90‑percentile pledge amount**
+### Task B – 90‑percentile pledge amount
 
 Produce **exactly two rows**:
 
@@ -83,53 +81,40 @@ Produce **exactly two rows**:
 | `p90_thb` | INT  | 90‑percentile of `amount_thb` | nearest‑rank method (see below) |
 
 *Nearest‑rank rule*:
-If a set contains *N* rows ordered ascending by `amount_thb`, the 90‑percentile is the value at rank `ceil(0.9 × N)` (1‑based).
+If a set contains *N* rows ordered ascending by `amount_thb`, the 90‑percentile is the value at rank `ceil(0.9 × N)` (1‑based).
 
-The `thailand` row uses only pledges whose donor’s `country = 'Thailand'` (case‑sensitive).
+The `thailand` row uses only pledges whose donor's `country = 'Thailand'` (case‑sensitive).
 
----
+### Task C – Index optimization
 
-### **Task C – Index advice**
+Return **exactly two `CREATE INDEX …` statements**:
 
-Return **a list / slice / array of exactly two `CREATE INDEX …` statements**:
+1. First index must make Task A faster.
+2. Second index must make Task B faster.
 
-1. First index must make Task A faster.
-2. Second index must make Task B faster.
-
-The tests run `EXPLAIN QUERY PLAN` and assert that **each query performs at least one indexed search** (no full‑table scans).
+Tests verify that **each query performs at least one indexed search** (no full‑table scans).
 
 ---
 
-## 4 · Your job
+## 3 · Your job
 
 | File                                       | Constant  | Expected value                                     |
 | ------------------------------------------ | --------- | -------------------------------------------------- |
-| `queries.py` / `queries.go` / `Queries.cs` | `SQL_A`   | your SELECT for Task A                             |
-|                                            | `SQL_B`   | your SELECT for Task B                             |
+| `queries.py` / `queries.go` / `Queries.cs` | `SQL_A`   | your SELECT for Task A                             |
+|                                            | `SQL_B`   | your SELECT for Task B                             |
 |                                            | `INDEXES` | iterable with exactly two `CREATE INDEX …` strings |
 
-*(The Go and C# test files alias different constant names; follow the in‑file TODOs.)*
+**Do not** edit test files or modify the database schema.
 
 ---
 
-## 5 · Constraints & rules
-
-* **SQLite version:** 3.45 (bundled with Python 3.12). No extensions loaded.
-* **Numeric precision:** use `ROUND(value, 4)` for `pct_of_target`.
-* **Do *not* modify** existing tables or data.
-* **Keep exactly the requested columns** in exactly the requested order.
-* **No peeking**: reading `expected/*.csv` in your solution is forbidden.
-* Both queries must run unchanged under the test runner; string formatting is unnecessary.
-
----
-
-## 6 · Running the tests locally
+## 4 · Running the tests locally
 
 ```bash
 cd tasks/04-sql-reasoning
 
 # Python
-pytest python/test_queries.py        # requires pytest & sqlite3 std‑lib
+pytest python/test_queries.py
 
 # Go
 go test ./go
@@ -142,17 +127,19 @@ Each test suite:
 
 1. Opens *donations.db* in read‑only mode.
 2. Creates your indexes (if any).
-3. Executes `SQL_A` → exports to `out/q1.csv`.
-4. Executes `SQL_B` → exports to `out/q2.csv`.
-5. Diffs the outputs against `expected/*.csv`.
-6. Verifies both query plans include at least one `SEARCH TABLE … USING INDEX`.
+3. Executes `SQL_A` → compares against `expected/q1.csv`.
+4. Executes `SQL_B` → compares against `expected/q2.csv`.
+5. Verifies both query plans include at least one `SEARCH TABLE … USING INDEX`.
+
+Tests pass ✅ only when your queries produce exact results and use efficient execution plans.
 
 ---
 
-## 7 · Estimated time
+## 5 · Estimated time
 
-A senior engineer fluent in SQL window functions and basic indexing needs **\~30 minutes**.
+A senior engineer fluent in SQL window functions and index design should finish in **45–60 minutes** including test runs.
+This task requires deep understanding of SQL analytics functions and performance optimization.
 
-Take your time if you need it—accuracy beats speed.
+Take your time—precision and optimization are key skills for senior developers.
 
-Good luck 🎯
+Good luck 🎯

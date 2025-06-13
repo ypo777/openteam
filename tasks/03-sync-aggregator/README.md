@@ -1,4 +1,4 @@
-# Task 3 – Concurrent File Stats Processor (Concurrency & I/O)
+# Task 3 – Sync Aggregator (Concurrency & I/O)
 
 This challenge measures your ability to coordinate multiple workers, enforce time‑based cancellation, and collate ordered results—all while keeping the code clean and test‑driven.
 
@@ -7,54 +7,52 @@ This challenge measures your ability to coordinate multiple workers, enforce tim
 ## 1 · Folder Structure
 
 ```
-
-tasks/03-concurrent-file-stats-processor/
+tasks/03-sync-aggregator/
 ├─ data/
 │  ├─ filelist.txt         # 15 relative paths, one per line
 │  └─ texts/               # sample input files (some start with #sleep=N)
 ├─ python/
-│  ├─ aggregator.py        # ←––– implement aggregate()
-│  └─ test\_aggregator.py   # reference tests – must stay green
+│  ├─ aggregator.py        # ←‑‑‑ implement aggregate()
+│  └─ test_aggregator.py   # reference tests – must stay green
 ├─ go/
+│  ├─ go.mod               # Go module file
 │  ├─ aggregator.go        # implement Aggregate()
-│  └─ aggregator\_test.go
+│  └─ aggregator_test.go   # failing tests
 └─ csharp/
-├─ Aggregator.csproj    # project file with xUnit refs
-├─ Aggregator.cs        # implement Aggregator.Aggregate()
-└─ AggregatorTests.cs
+   ├─ Aggregator.csproj    # project file with xUnit refs
+   ├─ Aggregator.cs        # implement Aggregator.Aggregate()
+   └─ AggregatorTests.cs   # failing tests
+```
 
-````
-
-Pick **one** language and edit only the stub file.
+Pick **one** language and edit only the implementation file.
 The tests in that folder will remain red until your implementation is correct.
 
 ---
 
 ## 2 · Specification
 
-### 2 · A  CLI contract
+### CLI contract
 
 ```bash
 aggregator --workers=8 --timeout=2 data/filelist.txt  ➜  result.json
-````
+```
 
 | Flag        | Meaning                                        | Default |
 | ----------- | ---------------------------------------------- | ------- |
 | `--workers` | Maximum concurrent worker threads / goroutines | `4`     |
 | `--timeout` | **Per‑file** processing budget in seconds      | `2`     |
 
-### 2 · B  Processing rules
+### Processing rules
 
 1. Iterate through **`filelist.txt`** (one relative path per line).
-2. If the first line of a file starts with **`#sleep=N`**, pause *N* seconds *then discard that marker line*—it **must not** be counted in `lines`/`words`.
+2. If the first line of a file starts with **`#sleep=N`**, pause *N* seconds *then discard that marker line*—it **must not** be counted in `lines`/`words`.
 3. Count
-
    * *Lines*: newline‑terminated lines after the marker (if any).
    * *Words*: ASCII‑whitespace‑separated tokens in those lines.
 4. Abandon work on a file that exceeds `--timeout` and record a timeout.
 5. Produce results **in the same order** as `filelist.txt`.
 
-### 2 · C  Output record
+### Output format
 
 ```jsonc
 // success
@@ -69,9 +67,9 @@ Return an array whose order **exactly matches** the input list.
 
 ---
 
-## 3 · Your Job
+## 3 · Your job
 
-| File (per language)    | Function / Method                       | Todo                                  |
+| File                   | Function / Method                       | Todo                                  |
 | ---------------------- | --------------------------------------- | ------------------------------------- |
 | `python/aggregator.py` | `aggregate(filelist, workers, timeout)` | Replace `raise NotImplementedError`   |
 | `go/aggregator.go`     | `Aggregate(filelist, workers, timeout)` | Replace `errors.New("implement")`     |
@@ -84,7 +82,7 @@ Return an array whose order **exactly matches** the input list.
 ## 4 · Running the tests locally
 
 ```bash
-cd tasks/03-concurrent-file-stats-processor
+cd tasks/03-sync-aggregator
 
 # Python
 pytest python/test_aggregator.py
@@ -100,13 +98,17 @@ The suites assert:
 
 1. All 15 records exactly match ground‑truth stats / timeouts.
 2. Array order preserved.
-3. Runs in < 6 s on reference data (verifies real concurrency).
+3. Runs in < 6 s on reference data (verifies real concurrency).
+
+Tests pass ✅ only when your implementation correctly handles concurrency and timeouts.
 
 ---
 
-## 5 · Estimated Time
+## 5 · Estimated time
 
-Mid‑level engineers typically finish in **25–30 minutes** including test runs.
-Seniors may proceed to Task 4 afterwards; juniors may skip this task.
+Mid‑level engineers typically finish in **30–45 minutes** including test runs.
+This task requires understanding of concurrency patterns, worker pools, and timeout handling.
 
-Good luck 🎯
+Take longer if you need it—quality concurrent code is challenging to get right.
+
+Good luck 🎯

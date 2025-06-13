@@ -30,7 +30,9 @@ The tests in that folder will remain red until your fix is correct.
 
 ---
 
-## 2 · Background
+## 2 · Specification
+
+### Background
 
 ```csharp
 // simplified excerpt from BuggyCounter.cs
@@ -96,5 +98,12 @@ Tests pass ✅ only when your implementation is thread-safe.
 * **Performance:** aim for an O(1), allocation‑free solution (e.g. atomic operations or small lock blocks).
   Elaborate lock‑free algorithms are **not** required.
 * **Scope of change:** modify **only** the implementation files. Any edits to project files or tests will be rejected.
+
+---
+
+## 6 · Estimated time
+
+A developer familiar with basic concurrency concepts should finish in **10–15 minutes** including test runs.
+Take longer if you need it—understanding thread safety is more important than speed.
 
 Good luck — turn the repo **green**!
