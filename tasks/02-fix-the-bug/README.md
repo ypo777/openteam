@@ -97,13 +97,4 @@ Tests pass ✅ only when your implementation is thread-safe.
   Elaborate lock‑free algorithms are **not** required.
 * **Scope of change:** modify **only** the implementation files. Any edits to project files or tests will be rejected.
 
----
-
-## 6 · Hints
-
-* The critical section is just a **read‑increment‑write** on a shared variable.
-  Making that single step atomic is enough.
-* Look for atomic increment operations in your language's standard library.
-* Keep your explanatory comments brief—reviewers favor clarity over length.
-
 Good luck — turn the repo **green**!
