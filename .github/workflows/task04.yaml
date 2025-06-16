@@ -1,0 +1,70 @@
+# .github/workflows/task04.yml
+name: task-04-sql-reasoning
+
+on:
+  push:
+    paths:
+      - 'tasks/04-sql-reasoning/**'
+  pull_request:
+    paths:
+      - 'tasks/04-sql-reasoning/**'
+
+jobs:
+  detect-changes:
+    runs-on: ubuntu-latest
+    outputs:
+      python:  ${{ steps.filter.outputs.python }}
+      go:      ${{ steps.filter.outputs.go }}
+      csharp:  ${{ steps.filter.outputs.csharp }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Detect modified sub‑folders
+        id: filter
+        uses: dorny/paths-filter@v3
+        with:
+          filters: |
+            python:
+              - 'tasks/04-sql-reasoning/python/**'
+            go:
+              - 'tasks/04-sql-reasoning/go/**'
+            csharp:
+              - 'tasks/04-sql-reasoning/csharp/**'
+
+  test-python:
+    needs: detect-changes
+    if: ${{ needs.detect-changes.outputs.python == 'true' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install pytest
+      - run: pytest tasks/04-sql-reasoning/python
+
+  test-go:
+    needs: detect-changes
+    if: ${{ needs.detect-changes.outputs.go == 'true' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: '1.22'
+      - run: |
+          cd tasks/04-sql-reasoning/go
+          go test .
+
+  test-csharp:
+    needs: detect-changes
+    if: ${{ needs.detect-changes.outputs.csharp == 'true' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+      - run: dotnet test tasks/04-sql-reasoning/csharp
